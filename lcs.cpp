@@ -3,7 +3,7 @@ using namespace std;
 
 static int current_value = 0, maximum_subsequence = 0;
 
-int longest_common_subsequence(int **numPos, int row, int currentValue, int totalRow, int totalColumn, int intialTerm)
+int longest_common_subsequence(int** numPos, int row, int currentValue, int totalRow, int totalColumn, int intialTerm)
 {
 
 	for (int jj = row; jj < totalRow; jj++)
@@ -17,18 +17,16 @@ int longest_common_subsequence(int **numPos, int row, int currentValue, int tota
 			if (numPos[jj][ii] > currentValue)
 			{
 				temp++;
-				if ((row + 1) < totalRow)
-					longest_common_subsequence(numPos, row + 1, numPos[jj][ii], totalRow, totalColumn, temp);
+				if ((jj + 1) < totalRow)
+					longest_common_subsequence(numPos, jj + 1, numPos[jj][ii], totalRow, totalColumn, temp);
+
 
 				if (temp > maximum_subsequence)
 					maximum_subsequence = temp;
 
-
-				return 0;
-
 			}
-			else
-				ii++;
+			
+			ii++;
 
 			if (ii >= totalColumn)
 				break;
@@ -95,9 +93,9 @@ int main()
 	for (ii = 0; ii < len1; ii++)
 	{
 		current_value = 0;
-		longest_common_subsequence(LCS_string, ii, 0, len1, len2,0);
+		longest_common_subsequence(LCS_string, ii, -1, len1, len2, 0);
 	}
-	cout << " the longest common sequence is :\t"<< maximum_subsequence;
+	cout << " the longest common sequence is :\t" << maximum_subsequence;
 
 cleanup:
 	//Free the memory after the use of array
@@ -110,4 +108,3 @@ cleanup:
 	return nStatus;
 
 }
-
